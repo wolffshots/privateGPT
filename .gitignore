@@ -171,3 +171,12 @@ cython_debug/
 
 .vscode/launch.json
 persist_directory/chroma.sqlite3
+
+local.properties
+
+source_documents/*.txt
+source_documents/*.doc*
+source_documents/*.pdf
+source_documents/*.xls*
+source_documents/*.md
+source_documents/*.csv

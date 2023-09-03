@@ -59,14 +59,16 @@ def main():
             raise Exception(f"Model type {model_type} is not supported. Please choose one of the following: LlamaCpp, GPT4All")
 
     qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents= not args.hide_source)
-    # Interactive questions and answers
-    while True:
-        query = input("\nEnter a query: ")
-        if query == "exit":
-            break
-        if query.strip() == "":
-            continue
 
+    print(args.context)
+
+    queries = [
+        f"You are a highly skilled AI trained in language comprehension and summarization. Keep the context restricted to the source document. I would like you to read the transcript from the {args.context} and summarize it into a concise abstract paragraph. Aim to retain the most important points, providing a coherent and readable summary that could help a person understand the main points of the discussion without needing to read the entire text. Please avoid unnecessary details or tangential points.",
+        f"You are a proficient AI with a specialty in distilling information into key points. Keep the context restricted to the source document. Based on the transcript from the {args.context}, identify and list the main points that were discussed or brought up. These should be the most important ideas, findings, or topics that are crucial to the essence of the discussion. Your goal is to provide a list that someone could read to quickly understand what was talked about.",
+        f"You are an AI expert in analyzing conversations and extracting action items. Keep the context restricted to the source document. Please review the transcript from the {args.context} and identify any tasks, assignments, or actions that were agreed upon or mentioned as needing to be done. These could be tasks assigned to specific individuals, or general actions that the group has decided to take. Please list these action items clearly and concisely.",
+        f"As an AI with expertise in language and emotion analysis, your task is to analyze the sentiment of the transcript from the {args.context}. Keep the context restricted to the source document. Please consider the overall tone of the discussion, the emotion conveyed by the language used, and the context in which words and phrases are used. Indicate whether the sentiment is generally positive, negative, or neutral, and provide brief explanations for your analysis where possible."
+    ]
+    for query in queries:
         # Get the answer from the chain
         start = time.time()
         res = qa(query)
@@ -93,6 +95,9 @@ def parse_arguments():
     parser.add_argument("--mute-stream", "-M",
                         action='store_true',
                         help='Use this flag to disable the streaming StdOut callback for LLMs.')
+    
+    parser.add_argument('--context', default="Financial Report Q3 2022 document", type=str,
+                        help='the context of the summary, eg. Financial Report Q3 2022 document')
 
     return parser.parse_args()
 

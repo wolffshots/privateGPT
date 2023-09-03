@@ -6,6 +6,10 @@ from dotenv import load_dotenv
 from multiprocessing import Pool
 from tqdm import tqdm
 
+__import__('pysqlite3') # pip install pysqlite3-binary
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 from langchain.document_loaders import (
     CSVLoader,
     EverNoteLoader,

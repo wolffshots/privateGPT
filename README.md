@@ -8,22 +8,21 @@ Built with [LangChain](https://github.com/hwchase17/langchain), [GPT4All](https:
 # Environment Setup
 In order to set your environment up to run the code here, first install all requirements:
 
-```shell
-pip3 install -r requirements.txt
-```
-
-*Alternative requirements installation with poetry*
 1. Install [poetry](https://python-poetry.org/docs/#installation)
-
-2. Run this commands
 ```shell
-cd privateGPT
-poetry install
-poetry shell
+python -m pip install poetry
 ```
+
+2. Run these commands from the project to install dependencies and start a shell with the virtual environment
+```shell
+python -m poetry install
+python -m poetry shell
+```
+
+3. After then you can use `poetry` directly if you need to add or change dependencies
 
 Then, download the LLM model and place it in a directory of your choice:
-- LLM: default to [ggml-gpt4all-j-v1.3-groovy.bin](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin). If you prefer a different GPT4All-J compatible model, just download it and reference it in your `.env` file.
+- LLM: default to [ggml-gpt4all-j-v1.3-groovy.bin](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin). If you prefer a different GPT4All-J or LlamaCpp compatible model, just download it and reference it in your `.env` file.
 
 Copy the `example.env` template into `.env`
 ```shell
@@ -42,9 +41,6 @@ TARGET_SOURCE_CHUNKS: The amount of chunks (sources) that will be used to answer
 ```
 
 Note: because of the way `langchain` loads the `SentenceTransformers` embeddings, the first time you run the script it will require internet connection to download the embeddings model itself.
-
-## Test dataset
-This repo uses a [state of the union transcript](https://github.com/imartinez/privateGPT/blob/main/source_documents/state_of_the_union.txt) as an example.
 
 ## Instructions for ingesting your own dataset
 
@@ -111,6 +107,13 @@ Note: you could turn off your internet connection, and the script inference woul
 
 Type `exit` to finish the script.
 
+## Summarise and extract actions from your documents, locally!
+
+```shell
+python privateSummary.py --context='Financial Report Q3 2022 document'
+```
+
+This will summarise the document in 4 categories with temperature of 0
 
 ### CLI
 The script also supports optional command-line arguments to modify its behavior. You can see a full list of these arguments by running the command ```python privateGPT.py --help``` in your terminal.

@@ -13,9 +13,14 @@ In order to set your environment up to run the code here, first install all requ
 python -m pip install poetry
 ```
 
-2. Run these commands from the project to install dependencies and start a shell with the virtual environment
+2. Run these commands from the project to install dependencies and start a shell with the virtual environment. Metal is for Mac, CuBLAS is for Nvidia.
 ```shell
-python -m poetry install
+CMAKE_ARGS="-DLLAMA_METAL=ON" FORCE_CMAKE=1 python -m poetry install
+```
+```shell
+CMAKE_ARGS="-DLLAMA_CUBLAS=on" FORCE_CMAKE=1 python -m poetry install
+```
+```shell
 python -m poetry shell
 ```
 

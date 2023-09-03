@@ -5,6 +5,10 @@ import argparse
 from dotenv import load_dotenv
 
 from whisper_cpp_python import Whisper
+# on macos
+# update whisper_cpp.py to say
+#    elif sys.platform == "darwin":
+#        lib_ext = ".dylib"
 from whisper_cpp_python.whisper_cpp import whisper_progress_callback
 
 from files import save_file

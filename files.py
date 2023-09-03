@@ -3,9 +3,8 @@ def read_file(filename):
         data = txt_file.read()
     return data
 
-def save_file(data, filename):
-    with open(filename, 'a') as txt_file:
-        txt_file.write("\n")
+def save_file(data, filename, mode='w'):
+    with open(filename, mode) as txt_file:
         if isinstance(data, dict):
             for key, value in data.items():
                 txt_file.write(f"{key}: {value}\n")

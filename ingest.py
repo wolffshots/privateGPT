@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 import os
 import glob
 from typing import List
@@ -6,9 +7,10 @@ from dotenv import load_dotenv
 from multiprocessing import Pool
 from tqdm import tqdm
 
-__import__('pysqlite3') # pip install pysqlite3-binary
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+if sys.platform.startswith("linux"):
+    __import__('pysqlite3') # pip install pysqlite3-binary
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 from langchain.document_loaders import (
     CSVLoader,

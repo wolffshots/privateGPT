@@ -23,6 +23,8 @@ pypandoc = "^1.11"
 tqdm = "^4.66.1"
 torch = ">=2.0.0, !=2.0.1"
 sentence-transformers = "^2.2.2"
+numba = "^0.57.0"
+whisper-cpp-python = "^0.2.0"
 
 
 [build-system]

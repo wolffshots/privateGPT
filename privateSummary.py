@@ -27,6 +27,7 @@ model_path = os.environ.get('MODEL_PATH')
 model_n_ctx = os.environ.get('MODEL_N_CTX')
 model_n_batch = int(os.environ.get('MODEL_N_BATCH',8))
 target_source_chunks = int(os.environ.get('TARGET_SOURCE_CHUNKS',4))
+num_threads = int(os.environ.get('NUM_THREADS',None))
 
 from constants import CHROMA_SETTINGS
 
@@ -50,7 +51,8 @@ def main():
                 callbacks=callbacks, 
                 verbose=True, 
                 n_gpu_layers=40,
-                temperature=0
+                temperature=0,
+                n_threads=num_threads
             )
         case "GPT4All":
             llm = GPT4All(model=model_path, max_tokens=model_n_ctx, backend='gptj', n_batch=model_n_batch, callbacks=callbacks, verbose=False)
@@ -78,7 +80,7 @@ def main():
         # Print the result
         print("\n\n> Question:")
         print(query)
-        print(f"\n> Answer (took {round(end - start, 2)} s.):")
+        print(f"\n> Answer (took {round(end - start, 2)}s.):")
         print(answer)
 
         # Print the relevant sources used for the answer
